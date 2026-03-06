@@ -1,17 +1,19 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import OrderManagement from './pages/OrderManagement';
-import InvoiceProcessing from './pages/InvoiceProcessing';
-import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
+import SupplierCommunication from './pages/SupplierCommunication';
+import Reports from './pages/Reports';
 
-const App = () => {
+function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/orders" element={<OrderManagement />} />
-      <Route path="/invoices" element={<InvoiceProcessing />} />
-    </Routes>
+    <div className="min-h-screen bg-gray-100">
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/supplier-communication" element={<SupplierCommunication />} />
+        <Route path="/reports" element={<Reports />} />
+      </Routes>
+    </div>
   );
-};
+}
 
 export default App;
