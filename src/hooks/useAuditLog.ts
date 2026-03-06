@@ -1,0 +1,1 @@
+import { useState } from 'react';type Log = { id: number; userId: string; action: string; timestamp: string; entity: string;};export const useAuditLog = () => { const [logs] = useState<Log[]>([{ id: 1, userId: 'admin', action: 'Created Order', timestamp: '2023-10-01 09:00', entity: 'ORD001' }]); return { logs };};

@@ -1,0 +1,1 @@
+import { useState } from 'react';type Supplier = { id: number; name: string;};export const useSuppliers = () => { const [suppliers] = useState<Supplier[]>([{ id: 1, name: 'Supplier A' }, { id: 2, name: 'Supplier B' }]); return { suppliers };};
