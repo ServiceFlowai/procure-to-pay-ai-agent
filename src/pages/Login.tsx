@@ -1,1 +1,45 @@
-import React, { useState } from 'react';import { useNavigate } from 'react-router-dom';import { useAuth } from '../context/AuthContext';import { Lock } from 'lucide-react';const Login: React.FC = () => { const [email, setEmail] = useState(''); const [password, setPassword] = useState(''); const [error, setError] = useState(''); const { login } = useAuth(); const navigate = useNavigate(); const handleSubmit = async (e: React.FormEvent) => { e.preventDefault(); try { await login(email, password); navigate('/'); } catch (err) { setError('Invalid credentials'); }}; return (<div className="flex justify-center items-center h-screen bg-gray-100"><form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md w-80"><h2 className="text-2xl mb-4">Login</h2>{error && <div className="text-red-500 mb-2">{error}</div>}<div className="mb-4"><label className="block text-gray-700">Email</label><input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full p-2 border rounded" required /></div><div className="mb-4"><label className="block text-gray-700">Password</label><input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full p-2 border rounded" required /></div><button type="submit" className="w-full bg-blue-500 text-white p-2 rounded flex justify-center items-center"><Lock className="mr-2" />Login</button></form></div>);};export default Login;
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    if (email === 'admin@example.com' && password === 'password') {
+      navigate('/orders');
+    } else {
+      setError('Invalid credentials');
+    }
+  };
+
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <div className="w-full max-w-xs">
+        <h1 className="text-2xl font-bold mb-4">Login</h1>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="mb-2 p-2 border rounded w-full"
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="mb-2 p-2 border rounded w-full"
+        />
+        {error && <div className="text-red-500 mb-2">{error}</div>}
+        <button onClick={handleLogin} className="bg-blue-500 text-white p-2 rounded w-full">
+          Login
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Login;

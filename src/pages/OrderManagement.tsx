@@ -1,1 +1,41 @@
-import React, { useState } from 'react';import { Table, Button, Modal, Form } from 'react-bootstrap';import { useOrders } from '../hooks/useOrders';const OrderManagement: React.FC = () => { const { orders, createOrder, updateOrder, deleteOrder } = useOrders(); const [showModal, setShowModal] = useState(false); const [newOrder, setNewOrder] = useState({ orderNumber: '', supplierName: '', orderDate: '', status: '' }); const handleCreate = () => { createOrder(newOrder); setShowModal(false); }; return (<div className="p-6"><h1 className="text-3xl mb-4">Order Management</h1><Button onClick={() => setShowModal(true)}>Create Order</Button><Table striped bordered hover><thead><tr><th>Order Number</th><th>Supplier Name</th><th>Order Date</th><th>Status</th><th>Actions</th></tr></thead><tbody>{orders.map(order => (<tr key={order.id}><td>{order.orderNumber}</td><td>{order.supplierName}</td><td>{order.orderDate}</td><td>{order.status}</td><td><Button variant="link" onClick={() => updateOrder(order.id)}>Edit</Button><Button variant="link" onClick={() => deleteOrder(order.id)}>Delete</Button></td></tr>))}</tbody></Table><Modal show={showModal} onHide={() => setShowModal(false)}><Modal.Header closeButton><Modal.Title>Create Order</Modal.Title></Modal.Header><Modal.Body><Form><Form.Group controlId="orderNumber"><Form.Label>Order Number</Form.Label><Form.Control type="text" value={newOrder.orderNumber} onChange={(e) => setNewOrder({ ...newOrder, orderNumber: e.target.value })} /></Form.Group><Form.Group controlId="supplierName"><Form.Label>Supplier Name</Form.Label><Form.Control type="text" value={newOrder.supplierName} onChange={(e) => setNewOrder({ ...newOrder, supplierName: e.target.value })} /></Form.Group><Form.Group controlId="orderDate"><Form.Label>Order Date</Form.Label><Form.Control type="date" value={newOrder.orderDate} onChange={(e) => setNewOrder({ ...newOrder, orderDate: e.target.value })} /></Form.Group><Form.Group controlId="status"><Form.Label>Status</Form.Label><Form.Control type="text" value={newOrder.status} onChange={(e) => setNewOrder({ ...newOrder, status: e.target.value })} /></Form.Group></Form></Modal.Body><Modal.Footer><Button variant="secondary" onClick={() => setShowModal(false)}>Close</Button><Button variant="primary" onClick={handleCreate}>Save</Button></Modal.Footer></Modal></div>);};export default OrderManagement;
+import React, { useState } from 'react';
+import { LucideIcon } from 'lucide-react';
+
+const OrderManagement = () => {
+  const [orders, setOrders] = useState([
+    { id: 1, orderNumber: 'ORD001', supplier: 'Supplier A', date: '2023-10-01', status: 'Pending' },
+    { id: 2, orderNumber: 'ORD002', supplier: 'Supplier B', date: '2023-10-02', status: 'Completed' }
+  ]);
+
+  return (
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">Order Management</h1>
+      <table className="min-w-full bg-white">
+        <thead>
+          <tr>
+            <th className="py-2">Order Number</th>
+            <th className="py-2">Supplier</th>
+            <th className="py-2">Order Date</th>
+            <th className="py-2">Status</th>
+            <th className="py-2">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {orders.map(order => (
+            <tr key={order.id} className="border-b">
+              <td className="py-2">{order.orderNumber}</td>
+              <td className="py-2">{order.supplier}</td>
+              <td className="py-2">{order.date}</td>
+              <td className="py-2">{order.status}</td>
+              <td className="py-2">
+                <button className="text-blue-500 hover:underline">View Invoices</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default OrderManagement;

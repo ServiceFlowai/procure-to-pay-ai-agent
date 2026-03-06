@@ -1,1 +1,32 @@
-import React, { useState } from 'react';import { useInvoices } from '../hooks/useInvoices';const InvoiceProcessing: React.FC = () => { const { invoices, uploadInvoice } = useInvoices(); const [selectedFile, setSelectedFile] = useState<File | null>(null); const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => { if (e.target.files) { setSelectedFile(e.target.files[0]); }}; const handleUpload = () => { if (selectedFile) { uploadInvoice(selectedFile); }}; return (<div className="p-6"><h1 className="text-3xl mb-4">Invoice Processing</h1><div className="mb-4"><input type="file" onChange={handleFileChange} /></div><button onClick={handleUpload} className="bg-blue-500 text-white p-2 rounded">Upload Invoice</button><div className="mt-4"><h2 className="text-xl mb-2">Invoices</h2><ul>{invoices.map(invoice => (<li key={invoice.id}>{invoice.invoiceNumber} - {invoice.supplierName}</li>))}</ul></div></div>);};export default InvoiceProcessing;
+import React, { useState } from 'react';
+
+const InvoiceProcessing = () => {
+  const [invoices, setInvoices] = useState([]);
+  const [message, setMessage] = useState('');
+
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files) {
+      // Simulate AI processing
+      setTimeout(() => {
+        setInvoices([...invoices, { id: invoices.length + 1, fileName: files[0].name }]);
+        setMessage('Invoice processed successfully!');
+      }, 1000);
+    }
+  };
+
+  return (
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">Invoice Processing</h1>
+      <input type="file" onChange={handleFileUpload} className="mb-4" />
+      {message && <div className="text-green-500 mb-4">{message}</div>}
+      <ul>
+        {invoices.map(invoice => (
+          <li key={invoice.id}>{invoice.fileName}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default InvoiceProcessing;
