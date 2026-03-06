@@ -1,0 +1,1 @@
+export const useReports = () => { const generateReport = (criteria: { dateRange: string; status: string; supplier: string }) => { console.log('Generating report with criteria:', criteria); }; return { generateReport };};
