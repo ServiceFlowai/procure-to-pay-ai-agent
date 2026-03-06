@@ -1,26 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-body {
-  font-family: 'Inter', sans-serif;
-}
-
-.notification-badge {
-  position: relative;
-  display: inline-block;
-}
-
-.notification-badge ul {
-  list-style: none;
-  padding: 0;
-}
-
-.notification-badge li {
-  padding: 0.5rem;
-  border-bottom: 1px solid #eee;
-}
-
-.notification-badge li.unread {
-  font-weight: bold;
-}
