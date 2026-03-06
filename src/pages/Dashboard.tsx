@@ -1,1 +1,12 @@
-import React from 'react';import { Pie } from 'react-chartjs-2';import { useAuth } from '../context/AuthContext';const Dashboard: React.FC = () => { const { user } = useAuth(); const data = { labels: ['Completed', 'Pending', 'Overdue'], datasets: [{ data: [300, 50, 100], backgroundColor: ['#36A2EB', '#FFCE56', '#FF6384'], hoverBackgroundColor: ['#36A2EB', '#FFCE56', '#FF6384'] }]}; return (<div className="p-6"><h1 className="text-3xl mb-4">Welcome, {user?.name}</h1><div className="grid grid-cols-1 md:grid-cols-3 gap-4"><div className="bg-white p-4 rounded shadow"><h2 className="text-xl mb-2">Order Status</h2><Pie data={data} /></div><div className="bg-white p-4 rounded shadow"><h2 className="text-xl mb-2">Invoice Processing Time</h2><p>Average: 2 days</p></div><div className="bg-white p-4 rounded shadow"><h2 className="text-xl mb-2">Supplier Communications</h2><p>Last 24 hours: 5 messages</p></div></div></div>);};export default Dashboard;
+import React from 'react';
+
+const Dashboard = () => {
+  return (
+    <div className="p-4">
+      <h1 className="text-2xl font-bold">Dashboard</h1>
+      <p>Welcome to the Procure to Pay AI Agent Dashboard.</p>
+    </div>
+  );
+};
+
+export default Dashboard;

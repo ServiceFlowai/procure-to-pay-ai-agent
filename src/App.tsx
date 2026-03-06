@@ -1,1 +1,19 @@
-import React from 'react';import { Routes, Route } from 'react-router-dom';import Dashboard from './pages/Dashboard';import Login from './pages/Login';import OrderManagement from './pages/OrderManagement';import InvoiceProcessing from './pages/InvoiceProcessing';import SupplierCommunication from './pages/SupplierCommunication';import Reports from './pages/Reports';import Notifications from './pages/Notifications';import AuditLog from './pages/AuditLog';import Navbar from './components/Navbar';import PrivateRoute from './components/PrivateRoute';import { AuthProvider } from './context/AuthContext';function App() { return (<AuthProvider><Navbar /><Routes><Route path="/login" element={<Login />} /><Route path="/" element={<PrivateRoute><Dashboard /></PrivateRoute>} /><Route path="/orders" element={<PrivateRoute><OrderManagement /></PrivateRoute>} /><Route path="/invoices" element={<PrivateRoute><InvoiceProcessing /></PrivateRoute>} /><Route path="/communication" element={<PrivateRoute><SupplierCommunication /></PrivateRoute>} /><Route path="/reports" element={<PrivateRoute><Reports /></PrivateRoute>} /><Route path="/notifications" element={<PrivateRoute><Notifications /></PrivateRoute>} /><Route path="/audit-log" element={<PrivateRoute><AuditLog /></PrivateRoute>} /></Routes></AuthProvider>);}export default App;
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Dashboard from './pages/Dashboard';
+import Orders from './pages/Orders';
+import AuditLog from './pages/AuditLog';
+
+function App() {
+  return (
+    <div className="min-h-screen bg-gray-100">
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/orders" element={<Orders />} />
+        <Route path="/audit-log" element={<AuditLog />} />
+      </Routes>
+    </div>
+  );
+}
+
+export default App;
