@@ -1,35 +1,43 @@
 import React, { useState } from 'react';
-import { LucideIcon } from 'lucide-react';
 
-const OrderManagement = () => {
-  const [orders, setOrders] = useState([
-    { id: 1, orderNumber: 'ORD001', supplier: 'Supplier A', date: '2023-10-01', status: 'Pending' },
-    { id: 2, orderNumber: 'ORD002', supplier: 'Supplier B', date: '2023-10-02', status: 'Completed' }
-  ]);
+const OrderManagement: React.FC = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [orders, setOrders] = useState([/* Mock data */]);
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filteredOrders = orders.filter(order =>
+    order.orderNumber.includes(searchTerm) ||
+    order.supplierName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Order Management</h1>
-      <table className="min-w-full bg-white">
+    <div className="order-management">
+      <h1>Order Management</h1>
+      <input
+        type="text"
+        placeholder="Search orders..."
+        value={searchTerm}
+        onChange={handleSearch}
+      />
+      <table>
         <thead>
           <tr>
-            <th className="py-2">Order Number</th>
-            <th className="py-2">Supplier</th>
-            <th className="py-2">Order Date</th>
-            <th className="py-2">Status</th>
-            <th className="py-2">Actions</th>
+            <th>Order Number</th>
+            <th>Supplier Name</th>
+            <th>Order Date</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody>
-          {orders.map(order => (
-            <tr key={order.id} className="border-b">
-              <td className="py-2">{order.orderNumber}</td>
-              <td className="py-2">{order.supplier}</td>
-              <td className="py-2">{order.date}</td>
-              <td className="py-2">{order.status}</td>
-              <td className="py-2">
-                <button className="text-blue-500 hover:underline">View Invoices</button>
-              </td>
+          {filteredOrders.map(order => (
+            <tr key={order.orderNumber}>
+              <td>{order.orderNumber}</td>
+              <td>{order.supplierName}</td>
+              <td>{order.orderDate}</td>
+              <td>{order.status}</td>
             </tr>
           ))}
         </tbody>

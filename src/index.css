@@ -3,13 +3,24 @@
 @tailwind utilities;
 
 body {
-  @apply bg-gray-100 text-gray-800;
+  font-family: 'Inter', sans-serif;
 }
 
-h1 {
-  @apply text-3xl font-bold;
+.notification-badge {
+  position: relative;
+  display: inline-block;
 }
 
-p {
-  @apply mt-2;
+.notification-badge ul {
+  list-style: none;
+  padding: 0;
+}
+
+.notification-badge li {
+  padding: 0.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.notification-badge li.unread {
+  font-weight: bold;
 }

@@ -1,30 +1,47 @@
 import React, { useState } from 'react';
 
-const InvoiceProcessing = () => {
-  const [invoices, setInvoices] = useState([]);
-  const [message, setMessage] = useState('');
+const InvoiceProcessing: React.FC = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [invoices, setInvoices] = useState([/* Mock data */]);
 
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    if (files) {
-      // Simulate AI processing
-      setTimeout(() => {
-        setInvoices([...invoices, { id: invoices.length + 1, fileName: files[0].name }]);
-        setMessage('Invoice processed successfully!');
-      }, 1000);
-    }
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
   };
 
+  const filteredInvoices = invoices.filter(invoice =>
+    invoice.invoiceNumber.includes(searchTerm) ||
+    invoice.supplierName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Invoice Processing</h1>
-      <input type="file" onChange={handleFileUpload} className="mb-4" />
-      {message && <div className="text-green-500 mb-4">{message}</div>}
-      <ul>
-        {invoices.map(invoice => (
-          <li key={invoice.id}>{invoice.fileName}</li>
-        ))}
-      </ul>
+    <div className="invoice-processing">
+      <h1>Invoice Processing</h1>
+      <input
+        type="text"
+        placeholder="Search invoices..."
+        value={searchTerm}
+        onChange={handleSearch}
+      />
+      <table>
+        <thead>
+          <tr>
+            <th>Invoice Number</th>
+            <th>Supplier Name</th>
+            <th>Invoice Date</th>
+            <th>Total Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredInvoices.map(invoice => (
+            <tr key={invoice.invoiceNumber}>
+              <td>{invoice.invoiceNumber}</td>
+              <td>{invoice.supplierName}</td>
+              <td>{invoice.invoiceDate}</td>
+              <td>{invoice.totalAmount}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
